@@ -2,6 +2,20 @@
 include("bdd.php");
 if (isset($_SESSION['nom']) and isset($_SESSION['nom'])) 
 {
+  $EnLigne = $bdd->prepare("UPDATE inscription SET En_ligne=1 WHERE Email=?");
+  $EnLigne->execute(array($_SESSION['email']));
+
+  $premium = $bdd -> prepare("SELECT Premium from premium WHERE Premium=1 and Email =?");
+  $premium ->execute(array($_SESSION['email']));
+  $premiumYes = $premium->rowcount();
+  if ($premiumYes ==1 ) 
+  {
+    $_SESSION['premium'] = true;
+  }
+  else
+  {
+    $_SESSION['premium'] =false;
+  }
 
 ?>
 <!DOCTYPE html>
@@ -10,23 +24,13 @@ if (isset($_SESSION['nom']) and isset($_SESSION['nom']))
 	<meta charset="UTF-8">
 	<title>Cursus</title>
 	<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-
+  <link rel="stylesheet" href="css/cursus.css">
 </head>
-<body style="background-image:url('images/informatique-4.jpg'); background-size: cover;">
+<body style="background-image:url('images/Informatique.large.jpeg');background-repeat: no-repeat; background-size: cover">
 
 <!-- MENU -->
-	<div class="wrapper row0">
-  <div id="topbar" class="hoc clear"> 
-    <ul>
-      <li><i class="fa fa-clock-o"></i> Lundi. - Dimanche. 08h - 18h</li>
-      <li><i class="fa fa-phone"></i> +00 (225) 68 971 041 || +00 (225) 72 151 686</li>
-      <li><i class="fa fa-envelope-o"></i> japprendsacoder@gmail.com</li>
-      <li><a href="profil.php" title="<?php echo $_SESSION['nom'].' '.$_SESSION['prenom'] ?>"><img src="images\demo\avatar.png" style="max-width: 18px;max-height: 18px;"></a></li>
-      <li><a href="deconnexion.php" title="Déconnexion"><i class="fa fa-lg fa-sign-out"></i></a></li>
-    </ul>
-  </div>
-</div>
-<div class="bgded overlay" style="background: initial;
+	
+<div class="bgded overlay" style="
 
 <?php
 	if (isset($_SESSION['email']) and $_SESSION['email']=="yapialex293@gmail.com") 
@@ -39,48 +43,23 @@ if (isset($_SESSION['nom']) and isset($_SESSION['nom']))
 	}
 
 ?>"> 
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear"> 
-      <div id="logo" class="fl_left" style="border:1px solid black;">
-        <h1><a href="index.php">JAC <span style="text-transform: lowercase; font-style: italic; font-size: 19px;">( J'apprends à coder )</span></a></h1>
+  <?php include('navMenuConnecter.php'); ?>
+  <div id="pageintro" class="hoc clear" >
+    <div id="formu">
+    <article>
+      <?php
+    if (isset($_SESSION['email']) and $_SESSION['email']!="yapialex293@gmail.com") 
+    {
+  ?>
+      <marquee>
+        <div id="apprendre" style="text-transform: uppercase;text-shadow: 2px 10px 3px black;text-align: center;background: linear-gradient(to left,silver,black,#F7AF9D);margin-bottom: 50px;" class="badge">
+        <p style="padding-top: 30px;padding-bottom: 30px;padding-left: 100px;padding-right: 100px;">Apprendre tout en restant chez soi.</p>
       </div>
-      <nav id="mainav" class="fl_right">
-  <ul class="clear">
-    <li class="active"><a href="index.php">Accueil</a></li>
-    <li><a class="drop" href="#">quiz</a>
-      <ul>
-        <li><a href="#">Level 1</a></li>
-        <li><a class="drop" href="#">Level 2</a>
-          <ul>
-            <li><a href="#">Level 1</a></li>
-            <li><a href="#">Level 2</a></li>
-            <li><a href="#">Level 3</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Level 3</a></li>
-      </ul>
-    </li>
-    <li><a class="drop" href="#">cours</a>
-      <ul>
-        <li><a href="pages/gallery.html">HTML-CSS</a></li>
-        <li><a href="pages/full-width.html">BOOTSTRAP</a></li>
-        <li><a href="pages/sidebar-left.html">JAVASCRIPT</a></li>
-        <li><a href="pages/sidebar-right.html">PHP-Mysql</a></li>
-        <li><a href="pages/basic-grid.html">SQL</a></li>
-      </ul>
-    </li>
-    
-    	<li><a href="#" class="drop">Forum</a></li>
-    <?php
-	?>
-    <li><a href="profil.php">Mon Profil</a></li>
-  </ul>
-</nav>
-    </header>
-  </div>
-  <div id="pageintro" class="hoc clear" style="margin-top: 70px;">
-    <article> 
-      <h3 class="heading">Bienvenue <span style="color: #F7AF9D"><?php echo $_SESSION['nom']; ?></span> sur la plateforme</h3><br>
+    </marquee>
+  <?php
+    }
+  ?>
+      <h3 class="heading">Bienvenue <span style="color: #F7AF9D"> JAC 1.19</span> sur la plateforme</h3><br>
       <?php
       if (isset($_SESSION['email']) and $_SESSION['email']=="yapialex293@gmail.com") 
 		{
@@ -160,16 +139,8 @@ if (isset($_SESSION['nom']) and isset($_SESSION['nom']))
     
     </article>
   </div>
-	<?php
-		if (isset($_SESSION['email']) and $_SESSION['email']!="yapialex293@gmail.com") 
-		{
-	?>
-			<div style="margin-top: 60px;text-align: center;text-transform: uppercase;">
-				<p style="color: #F7AF9D;bottom: 1px;">Apprendre tout en restant chez soi.</p>
-			</div>
-	<?php
-		}
-	?>
+  </div>
+	
 	
 
 </div>

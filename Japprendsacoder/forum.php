@@ -8,7 +8,6 @@
 	<title>Forum</title>
 </head>
 <body>
-	h1{Je dois faire le contenu de la page de forum}
 	
 </body>
 </html>

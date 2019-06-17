@@ -1,0 +1,28 @@
+body
+{
+	margin: 0;
+  	padding: 0;
+}
+#formu
+{
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+ 	height: 100vh;
+}
+#apprendre
+{
+
+	text-transform: uppercase;
+	text-shadow: 2px 10px 5px black;
+	text-align: center;
+	background: linear-gradient(to left,silver,black,#F7AF9D);
+	margin-bottom: 50px;
+}
+#apprendre>p
+{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	padding-left: 100px;
+	padding-right: 100px;
+}
